@@ -6,12 +6,91 @@
     <title>TABLORIA 3D</title>
     <meta name="description" content="Tabloria 3D - High-quality 3D printed portraits and figures.">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="tailwind.config.js"></script>
-    <link rel="stylesheet" href="assets/css/style.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#000000',
+                        secondary: '#1a1a1a',
+                        accent: '#e53e3e',
+                        textLight: '#f3f4f6',
+                        textDark: '#9ca3af',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply bg-primary text-textLight font-sans antialiased;
+            }
+            h1, h2, h3, h4, h5, h6 {
+                @apply font-display tracking-tight;
+            }
+        }
+
+        @layer components {
+            .btn-primary {
+                @apply inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-accent hover:bg-red-700 transition-colors duration-300 shadow-lg hover:shadow-red-500/50;
+            }
+            .btn-outline {
+                @apply inline-flex items-center justify-center px-6 py-3 border border-gray-600 text-base font-medium rounded-md text-white hover:bg-gray-800 transition-colors duration-300;
+            }
+            .glass-card {
+                @apply bg-secondary/80 backdrop-blur-md border border-gray-800 rounded-xl overflow-hidden shadow-2xl transition-all duration-300 hover:border-gray-600;
+            }
+            .input-field {
+                @apply w-full bg-primary border border-gray-700 rounded-md py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all;
+            }
+        }
+
+        /* Micro animations */
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+        .product-card img {
+            transition: transform 0.5s ease;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
     <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
-<body class="bg-primary text-textLight font-sans overflow-x-hidden selection:bg-accent selection:text-white">
+<body class="bg-black text-gray-100 font-sans overflow-x-hidden selection:bg-red-600 selection:text-white">
 
     <!-- Navigation -->
     <nav class="fixed w-full z-50 bg-primary/90 backdrop-blur-md border-b border-gray-800 transition-all duration-300" id="navbar">
