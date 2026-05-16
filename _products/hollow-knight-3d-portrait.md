@@ -1,9 +1,9 @@
-﻿---
+---
 layout: product
-title: "â€œHollow Knight 3d portraitâ€"
+title: "“Hollow Knight 3d portrait”"
 price: 2400.00
 image: "assets/images/hollow-knight-3d-portrait.jpg"
 category: "portraits"
 ---
-â€œHollow Knight 3d portraitâ€-54cm x 40cm Aluminum frame with led light ðŸ’¡Â 
+“Hollow Knight 3d portrait”-54cm x 40cm Aluminum frame with led light 💡 
 -Figure is 3d printed and handmade painted.

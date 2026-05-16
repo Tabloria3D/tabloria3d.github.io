@@ -1,11 +1,11 @@
-﻿---
+---
 layout: product
-title: "â€œKiller croc 3d portraitâ€"
+title: "“Killer croc 3d portrait”"
 price: 4500.00
 image: "assets/images/killer-croc-3d-portrait.jpg"
 category: "portraits"
 ---
-â€œKiller croc 3d portraitâ€
+“Killer croc 3d portrait”
 - 40cm tall.
 - Figure is 3d printed and hand painted.
 - illuminated figure.

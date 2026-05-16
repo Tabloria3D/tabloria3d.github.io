@@ -1,10 +1,10 @@
-﻿---
+---
 layout: product
-title: "â€œFARCRY 3d portraitâ€"
+title: "“FARCRY 3d portrait”"
 price: 2800.00
 image: "assets/images/farcry-3d-portrait.jpg"
 category: "portraits"
 ---
-â€œFARCRY 3d portraitâ€
+“FARCRY 3d portrait”
 -54cm x 40cm Aluminum frame with led light.
 - Figure is 3d printed and hand painted.

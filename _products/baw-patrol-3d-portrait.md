@@ -1,11 +1,11 @@
-﻿---
+---
 layout: product
-title: "â€œBaw Patrol 3d portraitâ€"
+title: "“Baw Patrol 3d portrait”"
 price: 2400.00
 image: "assets/images/baw-patrol-3d-portrait.jpg"
 category: "portraits"
 ---
-â€œBaw patrol 3d portraitâ€
-- 54cm x 40cm Aluminum frame with led light ðŸ’¡Â 
+“Baw patrol 3d portrait”
+- 54cm x 40cm Aluminum frame with led light 💡 
 - Figure is 3d printed &amp; hand painted.
 - Background customization available.

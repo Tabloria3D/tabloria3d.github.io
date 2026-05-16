@@ -1,10 +1,10 @@
-﻿---
+---
 layout: product
-title: "â€œAlaadin 3d portraitâ€"
+title: "“Alaadin 3d portrait”"
 price: 1600.00
 image: "assets/images/alaadin-3d-portrait.jpg"
 category: "portraits"
 ---
-â€œAlaadin 3d portraitâ€
-- 54cm x 40cm Aluminum frame with led light.ðŸ’¡Â 
+“Alaadin 3d portrait”
+- 54cm x 40cm Aluminum frame with led light.💡 
 - Figure is 3d printed and hand painted.

@@ -1,10 +1,10 @@
-﻿---
+---
 layout: product
-title: "â€œZamalek 3d portraitâ€"
+title: "“Zamalek 3d portrait”"
 price: 2000.00
 image: "assets/images/zamalek-3d-portrait.jpg"
 category: "portraits"
 ---
-â€œZamalek 3d portraitâ€
-- 54cm x 40cm Aluminum frame with led light.ðŸ’¡Â 
+“Zamalek 3d portrait”
+- 54cm x 40cm Aluminum frame with led light.💡 
 - Figure is 3d printed and hand painted.

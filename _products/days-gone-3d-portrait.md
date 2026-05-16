@@ -1,10 +1,10 @@
-﻿---
+---
 layout: product
-title: "â€œDays gone 3d portraitâ€"
+title: "“Days gone 3d portrait”"
 price: 2600.00
 image: "assets/images/days-gone-3d-portrait.jpg"
 category: "portraits"
 ---
-â€œDays gone 3d portraitâ€
-- 54cm x 40cm Aluminum frame with led light ðŸ’¡Â 
+“Days gone 3d portrait”
+- 54cm x 40cm Aluminum frame with led light 💡 
 - Figure is 3d printed &amp; hand painted.

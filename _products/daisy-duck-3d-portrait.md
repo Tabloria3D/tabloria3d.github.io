@@ -1,10 +1,10 @@
-﻿---
+---
 layout: product
-title: "â€œDaisy Duck 3d portraitâ€"
+title: "“Daisy Duck 3d portrait”"
 price: 2600.00
 image: "assets/images/daisy-duck-3d-portrait.jpg"
 category: "portraits"
 ---
-â€œDaisy Duck 3d portraitâ€
--54cm x 40cm Aluminum frame with led light.ðŸ’¡Â 
+“Daisy Duck 3d portrait”
+-54cm x 40cm Aluminum frame with led light.💡 
 - Figure is 3d printed and hand painted.

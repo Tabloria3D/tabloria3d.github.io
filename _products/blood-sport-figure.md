@@ -1,10 +1,10 @@
-﻿---
+---
 layout: product
-title: "â€œBlood Sport Figureâ€"
+title: "“Blood Sport Figure”"
 price: 6800.00
 image: "assets/images/blood-sport-figure.jpg"
 category: "figures"
 ---
-â€œBlood Sport Figureâ€
+“Blood Sport Figure”
 - 45cm tall.
 - 3d printed and hand painted .

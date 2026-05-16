@@ -1,9 +1,9 @@
-﻿---
+---
 layout: product
-title: "â€œBatman mask 3d portraitâ€"
+title: "“Batman mask 3d portrait”"
 price: 2400.00
 image: "assets/images/batman-mask-3d-portrait.jpg"
 category: "portraits"
 ---
-â€œBatman mask 3d portraitâ€
+“Batman mask 3d portrait”
 -54cm x 40cm Aluminum frame with led light.

@@ -1,10 +1,10 @@
-﻿---
+---
 layout: product
-title: "â€œWitcher Medallion 3d portraitâ€"
+title: "“Witcher Medallion 3d portrait”"
 price: 2800.00
 image: "assets/images/witcher-medallion-3d-portrait.jpg"
 category: "portraits"
 ---
-â€œWitcher Medallion 3d portraitâ€
-- 54cm x 40cm Aluminum frame with led light.ðŸ’¡Â 
+“Witcher Medallion 3d portrait”
+- 54cm x 40cm Aluminum frame with led light.💡 
 - Figure is 3d printed and hand painted.
