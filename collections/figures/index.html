@@ -1,0 +1,33 @@
+---
+layout: default
+title: "Figures Collection"
+---
+
+<section class="py-20 bg-secondary/30 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h1 class="text-3xl md:text-5xl font-display font-bold text-white mb-4">Figures</h1>
+            <div class="w-24 h-1 bg-accent mx-auto rounded-full"></div>
+            <p class="text-gray-400 mt-4 text-lg">Browse our collection of 3D printed figures.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            {% for product in site.products %}
+                {% if product.category == 'figures' %}
+                <a href="{{ product.url | relative_url }}" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="{{ '/' | relative_url }}{{ product.image }}" alt="{{ product.title }}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">{{ product.title }}</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">{{ product.price }} EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</section>

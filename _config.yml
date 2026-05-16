@@ -1,0 +1,15 @@
+title: TABLORIA 3D
+description: Premium 3D printed portraits, figures, and collectibles crafted with exceptional detail and quality.
+baseurl: ""
+url: "https://tabloria3d.github.io" # update to true url later
+
+collections:
+  products:
+    output: true
+    permalink: /products/:name/
+
+exclude:
+  - data.json
+  - scrape_shopify.js
+  - tailwind.config.js
+  - convert_json_to_md.ps1

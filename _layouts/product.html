@@ -1,0 +1,77 @@
+---
+layout: default
+---
+
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="glass-card p-8 md:p-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+            <!-- Product Image -->
+            <div class="rounded-xl overflow-hidden bg-black/50 border border-gray-800">
+                <img src="{{ '/' | relative_url }}{{ page.image }}" alt="{{ page.title }}" class="w-full h-auto object-cover">
+            </div>
+
+            <!-- Product Details -->
+            <div>
+                <nav class="flex mb-4 text-sm text-gray-400">
+                    <ol class="flex items-center space-x-2">
+                        <li><a href="{{ '/' | relative_url }}" class="hover:text-white transition-colors">Home</a></li>
+                        <li><span class="mx-2">/</span></li>
+                        <li><a href="{{ '/' | relative_url }}collections/{{ page.category }}/" class="hover:text-white transition-colors capitalize">{{ page.category }}</a></li>
+                        <li><span class="mx-2">/</span></li>
+                        <li class="text-white truncate" aria-current="page">{{ page.title }}</li>
+                    </ol>
+                </nav>
+
+                <h1 class="text-3xl md:text-5xl font-display font-bold text-white mb-4">{{ page.title }}</h1>
+                <p class="text-2xl text-accent font-semibold mb-6">{{ page.price }} EGP</p>
+                
+                <div class="prose prose-invert mb-8 text-gray-300">
+                    {{ content | newline_to_br }}
+                </div>
+
+                <div class="space-y-4">
+                    <!-- Mailto Order Button -->
+                    <button onclick="orderProduct('{{ page.title | escape }}', '{{ page.price }}')" class="w-full btn-primary group flex justify-center items-center gap-2">
+                        <i class="fas fa-envelope"></i>
+                        <span>Order via Email</span>
+                    </button>
+                    <p class="text-sm text-gray-500 text-center">Clicking order will open your email client to send an order request.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Similar Products -->
+    <div class="mt-20">
+        <h2 class="text-2xl md:text-4xl font-display font-bold text-white mb-8">Similar Products</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {% assign similar_count = 0 %}
+            {% for product in site.products %}
+                {% if product.category == page.category and product.url != page.url and similar_count < 4 %}
+                    <a href="{{ product.url | relative_url }}" class="glass-card product-card group block">
+                        <div class="relative overflow-hidden aspect-[4/5]">
+                            <img src="{{ '/' | relative_url }}{{ product.image }}" alt="{{ product.title }}" class="w-full h-full object-cover">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">{{ product.title }}</h3>
+                            <div class="flex justify-between items-center mt-4">
+                                <span class="text-accent font-semibold text-xl">{{ product.price }} EGP</span>
+                                <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                            </div>
+                        </div>
+                    </a>
+                    {% assign similar_count = similar_count | plus: 1 %}
+                {% endif %}
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<script>
+function orderProduct(title, price) {
+    const email = "tabloria3d@gmail.com";
+    const subject = encodeURIComponent(`Order Request: ${title}`);
+    const body = encodeURIComponent(`Hello,\n\nI would like to order the following product:\n\nProduct: ${title}\nPrice: ${price} EGP\n\nPlease let me know the next steps for payment and delivery.\n\nThank you.`);
+    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+}
+</script>

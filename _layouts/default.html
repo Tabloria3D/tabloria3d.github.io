@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ page.title | default: site.title }}</title>
+    <meta name="description" content="{{ page.description | default: site.description }}">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#000000',
+                        secondary: '#1a1a1a',
+                        accent: '#e53e3e',
+                        textLight: '#f3f4f6',
+                        textDark: '#9ca3af',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0' },
+                            '100%': { opacity: '1' },
+                        },
+                        slideUp: {
+                            '0%': { transform: 'translateY(20px)', opacity: '0' },
+                            '100%': { transform: 'translateY(0)', opacity: '1' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply bg-primary text-textLight font-sans antialiased;
+            }
+            h1, h2, h3, h4, h5, h6 {
+                @apply font-display tracking-tight;
+            }
+        }
+
+        @layer components {
+            .btn-primary {
+                @apply inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-accent hover:bg-red-700 transition-colors duration-300 shadow-lg hover:shadow-red-500/50;
+            }
+            .btn-outline {
+                @apply inline-flex items-center justify-center px-6 py-3 border border-gray-600 text-base font-medium rounded-md text-white hover:bg-gray-800 transition-colors duration-300;
+            }
+            .glass-card {
+                @apply bg-secondary/80 backdrop-blur-md border border-gray-800 rounded-xl overflow-hidden shadow-2xl transition-all duration-300 hover:border-gray-600;
+            }
+            .input-field {
+                @apply w-full bg-primary border border-gray-700 rounded-md py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all;
+            }
+        }
+
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+        .product-card img {
+            transition: transform 0.5s ease;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-black text-gray-100 font-sans overflow-x-hidden selection:bg-red-600 selection:text-white">
+
+    <nav class="fixed w-full z-50 bg-primary/90 backdrop-blur-md border-b border-gray-800 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center gap-3">
+                    <a href="{{ '/' | relative_url }}" class="font-display font-bold text-2xl tracking-wider text-white">TABLORIA <span class="text-accent">3D</span></a>
+                </div>
+                <div class="hidden md:flex space-x-8 items-center">
+                    <a href="{{ '/' | relative_url }}#home" class="text-gray-300 hover:text-white transition-colors duration-200">Home</a>
+                    <a href="{{ '/' | relative_url }}#products" class="text-gray-300 hover:text-white transition-colors duration-200">Products</a>
+                    <a href="{{ '/' | relative_url }}#contact" class="btn-primary py-2 px-4 rounded">Contact Us</a>
+                    <button id="search-btn" class="text-gray-300 hover:text-white focus:outline-none">
+                        <i class="fas fa-search text-xl"></i>
+                    </button>
+                </div>
+                <div class="md:hidden flex items-center gap-4">
+                    <button id="mobile-search-btn" class="text-gray-300 hover:text-white focus:outline-none">
+                        <i class="fas fa-search text-xl"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-secondary border-b border-gray-800">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="{{ '/' | relative_url }}#home" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-800">Home</a>
+                <a href="{{ '/' | relative_url }}#products" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Products</a>
+                <a href="{{ '/' | relative_url }}#contact" class="block px-3 py-2 rounded-md text-base font-medium text-accent hover:text-red-400 hover:bg-gray-800">Contact Us</a>
+            </div>
+        </div>
+    </nav>
+
+    {{ content }}
+
+    <footer class="bg-black py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-6 md:mb-0">
+                <span class="font-display font-bold text-2xl tracking-wider text-white">TABLORIA <span class="text-accent">3D</span></span>
+                <p class="text-gray-500 mt-2 text-sm">© 2026 Tabloria 3D. All rights reserved.</p>
+            </div>
+            <div class="flex space-x-6">
+                <a href="#" class="text-gray-400 hover:text-white text-xl transition-colors"><i class="fab fa-instagram"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white text-xl transition-colors"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="text-gray-400 hover:text-white text-xl transition-colors"><i class="fab fa-tiktok"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <div id="search-overlay" class="fixed inset-0 bg-black/90 z-50 hidden flex-col pt-24 px-4 sm:px-6 lg:px-8 backdrop-blur-sm">
+        <div class="max-w-3xl mx-auto w-full relative">
+            <button id="close-search" class="absolute -top-12 right-0 text-white hover:text-accent transition-colors">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+            <input type="text" id="search-input" class="w-full bg-secondary/80 border border-gray-700 text-white rounded-lg px-6 py-4 text-xl focus:outline-none focus:border-accent" placeholder="Search products...">
+            <div id="search-results" class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[60vh] overflow-y-auto"></div>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <script>
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Search UI logic
+        const searchOverlay = document.getElementById('search-overlay');
+        const searchInput = document.getElementById('search-input');
+        
+        function openSearch() {
+            searchOverlay.classList.remove('hidden');
+            searchOverlay.classList.add('flex');
+            setTimeout(() => searchInput.focus(), 100);
+        }
+        
+        function closeSearch() {
+            searchOverlay.classList.add('hidden');
+            searchOverlay.classList.remove('flex');
+        }
+
+        document.getElementById('search-btn').addEventListener('click', openSearch);
+        document.getElementById('mobile-search-btn').addEventListener('click', openSearch);
+        document.getElementById('close-search').addEventListener('click', closeSearch);
+        
+        // Search Logic using Lunr.js
+        let searchIndex;
+        let productsData = {};
+
+        fetch('{{ "/search.json" | relative_url }}')
+            .then(res => res.json())
+            .then(data => {
+                searchIndex = lunr(function () {
+                    this.ref('url');
+                    this.field('title');
+                    this.field('category');
+                    
+                    data.forEach(function (doc) {
+                        this.add(doc);
+                        productsData[doc.url] = doc;
+                    }, this)
+                });
+            });
+
+        searchInput.addEventListener('input', function() {
+            const query = this.value;
+            const resultsContainer = document.getElementById('search-results');
+            
+            if (query.length < 2) {
+                resultsContainer.innerHTML = '';
+                return;
+            }
+
+            const results = searchIndex.search(query);
+            
+            if (results.length === 0) {
+                resultsContainer.innerHTML = '<p class="text-gray-400">No products found.</p>';
+                return;
+            }
+
+            resultsContainer.innerHTML = results.map(result => {
+                const item = productsData[result.ref];
+                return `
+                    <a href="${item.url}" class="flex items-center gap-4 bg-secondary p-4 rounded-lg hover:bg-gray-800 transition-colors">
+                        <img src="{{ '/' | relative_url }}${item.image}" alt="${item.title}" class="w-16 h-16 object-cover rounded">
+                        <div>
+                            <h4 class="text-white font-medium">${item.title}</h4>
+                            <p class="text-accent">${item.price} EGP</p>
+                        </div>
+                    </a>
+                `;
+            }).join('');
+        });
+    </script>
+</body>
+</html>
