@@ -26,18 +26,25 @@ async function main() {
     const imagesDir = path.join(__dirname, 'assets', 'images');
     
     for (const p of data.products) {
-        let imageUrl = '';
-        let localImage = '';
+        let localImages = [];
+        const productImagesDir = path.join(imagesDir, p.handle);
         if (p.images && p.images.length > 0) {
-            imageUrl = p.images[0].src;
-            const ext = path.extname(new URL(imageUrl).pathname) || '.jpg';
-            const filename = `${p.handle}${ext}`;
-            localImage = `assets/images/${filename}`;
-            console.log(`Downloading ${imageUrl} to ${localImage}...`);
-            try {
-                await downloadImage(imageUrl, path.join(imagesDir, filename));
-            } catch(e) {
-                console.error(`Failed to download ${imageUrl}: ${e.message}`);
+            if (!fs.existsSync(productImagesDir)) {
+                fs.mkdirSync(productImagesDir, { recursive: true });
+            }
+            for (let i = 0; i < p.images.length; i++) {
+                const imageUrl = p.images[i].src;
+                const urlObj = new URL(imageUrl);
+                const ext = path.extname(urlObj.pathname) || '.jpg';
+                const filename = `${p.handle}-${i + 1}${ext}`;
+                const localImage = `assets/images/${p.handle}/${filename}`;
+                console.log(`Downloading ${imageUrl} to ${localImage}...`);
+                try {
+                    await downloadImage(imageUrl, path.join(productImagesDir, filename));
+                    localImages.push(localImage);
+                } catch(e) {
+                    console.error(`Failed to download ${imageUrl}: ${e.message}`);
+                }
             }
         }
         
@@ -45,10 +52,11 @@ async function main() {
             id: p.id,
             title: p.title,
             handle: p.handle,
-            description: p.body_html.replace(/<[^>]*>?/gm, '').trim(),
+            description: p.body_html ? p.body_html.replace(/<[^>]*>?/gm, '').trim() : '',
             price: p.variants[0]?.price || "0.00",
             compareAtPrice: p.variants[0]?.compare_at_price || null,
-            image: localImage
+            image: localImages.length > 0 ? localImages[0] : '',
+            images: localImages
         });
     }
     

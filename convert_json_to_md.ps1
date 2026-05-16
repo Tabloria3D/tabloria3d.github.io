@@ -13,11 +13,20 @@ foreach ($product in $products) {
     $price = $product.price
     $image = $product.image
     $description = $product.description
+    $images = $product.images
 
     # Simple category logic based on title/handle
     $category = "figures"
     if ($handle -match "portrait") {
         $category = "portraits"
+    }
+
+    $imagesYaml = ""
+    if ($null -ne $images -and $images.Count -gt 0) {
+        $imagesYaml = "images:`n"
+        foreach ($img in $images) {
+            $imagesYaml += "  - `"$img`"`n"
+        }
     }
 
     $mdContent = @"
@@ -27,7 +36,7 @@ title: "$title"
 price: $price
 image: "$image"
 category: "$category"
----
+$imagesYaml---
 $description
 "@
 
