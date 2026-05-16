@@ -1,0 +1,1443 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portraits Collection</title>
+    <meta name="description" content="Premium 3D printed portraits, figures, and collectibles crafted with exceptional detail and quality.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#000000',
+                        secondary: '#1a1a1a',
+                        accent: '#e53e3e',
+                        textLight: '#f3f4f6',
+                        textDark: '#9ca3af',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply bg-primary text-textLight font-sans antialiased;
+            }
+            h1, h2, h3, h4, h5, h6 {
+                @apply font-display tracking-tight;
+            }
+        }
+        @layer components {
+            .btn-primary {
+                @apply inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-accent hover:bg-red-700 transition-colors duration-300 shadow-lg hover:shadow-red-500/50;
+            }
+            .btn-outline {
+                @apply inline-flex items-center justify-center px-6 py-3 border border-gray-600 text-base font-medium rounded-md text-white hover:bg-gray-800 transition-colors duration-300;
+            }
+            .glass-card {
+                @apply bg-secondary/80 backdrop-blur-md border border-gray-800 rounded-xl overflow-hidden shadow-2xl transition-all duration-300 hover:border-gray-600;
+            }
+            .input-field {
+                @apply w-full bg-primary border border-gray-700 rounded-md py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all;
+            }
+        }
+
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+        .product-card img {
+            transition: transform 0.5s ease;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-black text-gray-100 font-sans overflow-x-hidden selection:bg-red-600 selection:text-white">
+
+    <nav class="fixed w-full z-50 bg-primary/90 backdrop-blur-md border-b border-gray-800 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center gap-3">
+                    <a href="/" class="font-display font-bold text-2xl tracking-wider text-white">TABLORIA <span class="text-accent">3D</span></a>
+                </div>
+                <div class="hidden md:flex space-x-6 items-center">
+                    <a href="/#home" class="text-gray-300 hover:text-white transition-colors duration-200">Home</a>
+                    <a href="/collections/portraits/" class="text-gray-300 hover:text-white transition-colors duration-200">Portraits</a>
+                    <a href="/collections/figures/" class="text-gray-300 hover:text-white transition-colors duration-200">Figures</a>
+                    <a href="/#contact" class="text-gray-300 hover:text-white transition-colors duration-200">Contact Us</a>
+                    
+                    <button id="search-btn" class="text-gray-300 hover:text-white focus:outline-none">
+                        <i class="fas fa-search text-xl"></i>
+                    </button>
+                    
+                    <button id="cart-btn" class="text-gray-300 hover:text-accent relative focus:outline-none ml-4">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-accent text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">0</span>
+                    </button>
+
+                    <div class="border-l border-gray-700 h-6 mx-2"></div>
+                    
+                    <!-- Social Icons -->
+                    <a href="https://wa.me/201067826826" target="_blank" class="text-green-500 hover:text-green-400 text-xl transition-colors"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.instagram.com/tabloria3d?igsh=dnMwZzV1M3o4Mzk5&utm_source=qr" target="_blank" class="text-pink-500 hover:text-pink-400 text-xl transition-colors"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/share/18wS3MNBQi/?mibextid=wwXIfr" target="_blank" class="text-blue-500 hover:text-blue-400 text-xl transition-colors"><i class="fab fa-facebook"></i></a>
+                </div>
+                <div class="md:hidden flex items-center gap-4">
+                    <button id="mobile-search-btn" class="text-gray-300 hover:text-white focus:outline-none">
+                        <i class="fas fa-search text-xl"></i>
+                    </button>
+                    <button id="mobile-cart-btn" class="text-gray-300 hover:text-accent relative focus:outline-none">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="mobile-cart-count" class="absolute -top-2 -right-2 bg-accent text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">0</span>
+                    </button>
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-secondary border-b border-gray-800">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="/#home" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-800">Home</a>
+                <a href="/collections/portraits/" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Portraits</a>
+                <a href="/collections/figures/" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Figures</a>
+                <a href="/#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Contact Us</a>
+                <div class="flex gap-4 px-3 py-2 mt-2">
+                    <a href="https://wa.me/201067826826" target="_blank" class="text-green-500 hover:text-green-400 text-2xl"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.instagram.com/tabloria3d?igsh=dnMwZzV1M3o4Mzk5&utm_source=qr" target="_blank" class="text-pink-500 hover:text-pink-400 text-2xl"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/share/18wS3MNBQi/?mibextid=wwXIfr" target="_blank" class="text-blue-500 hover:text-blue-400 text-2xl"><i class="fab fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="py-20 bg-secondary/30 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-16">
+            <h1 class="text-3xl md:text-5xl font-display font-bold text-white mb-4">Portraits</h1>
+            <div class="w-24 h-1 bg-accent mx-auto rounded-full"></div>
+            <p class="text-gray-400 mt-4 text-lg">Browse our collection of 3D printed portraits.</p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            
+                
+                <a href="/products/a-bugs-life-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/a-bugs-life-3d-portrait.jpg" alt="“A bugs life 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“A bugs life 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2000.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/ahly-logo-with-3d-name-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/ahly-logo-with-3d-name-3d-portrait.jpg" alt="“Ahly logo with 3d name 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Ahly logo with 3d name 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">1300.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/al-ahli-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/al-ahli-3d-portrait.jpg" alt="“Al-ahli 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Al-ahli 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2000.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/alaadin-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/alaadin-3d-portrait.jpg" alt="“Alaadin 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Alaadin 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">1600.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/arsenal-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/arsenal-3d-portrait.jpg" alt="“Arsenal 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Arsenal 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2000.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/baby-groot-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/baby-groot-3d-portrait.jpg" alt="“Baby groot 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Baby groot 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">1650.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/baby-yoda-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/baby-yoda-3d-portrait.jpg" alt="“Baby yoda 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Baby yoda 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">1800.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/barber-shop-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/barber-shop-3d-portrait.jpg" alt="“Barber shop 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Barber shop 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2400.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/barcelona-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/barcelona-3d-portrait.jpg" alt="“Barcelona 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Barcelona 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2100.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/batman-body-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/batman-body-3d-portrait.jpg" alt="“Batman body 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Batman body 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2700.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/batman-mask-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/batman-mask-3d-portrait.jpg" alt="“Batman mask 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Batman mask 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2400.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/batman-returns-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/batman-returns-3d-portrait.jpg" alt="“Batman returns 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Batman returns 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2600.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/baw-patrol-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/baw-patrol-3d-portrait.jpg" alt="“Baw Patrol 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Baw Patrol 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2400.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+            
+                
+                <a href="/products/bmw-car-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/bmw-car-3d-portrait.jpg" alt="“BMW car 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“BMW car 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2400.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/body-builder-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/body-builder-3d-portrait.jpg" alt="“Body builder 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Body builder 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2000.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/boxing-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/boxing-3d-portrait.jpg" alt="“Boxing 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Boxing 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2000.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/bunisher-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/bunisher-3d-portrait.jpg" alt="“Punisher 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Punisher 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2700.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/buzz-lightyear-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/buzz-lightyear-3d-portrait.jpg" alt="“Buzz lightyear 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Buzz lightyear 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">3000.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/captain-america-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/captain-america-3d-portrait.jpg" alt="“Captain America 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Captain America 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">3000.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/cayde-6-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/cayde-6-3d-portrait.jpg" alt="“Cayde-6 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Cayde-6 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2700.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/claw-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/claw-3d-portrait.jpg" alt="“Claw 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Claw 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2500.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/daisy-duck-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/daisy-duck-3d-portrait.jpg" alt="“Daisy Duck 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Daisy Duck 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2600.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/days-gone-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/days-gone-3d-portrait.jpg" alt="“Days gone 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Days gone 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2600.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/deadpool-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/deadpool-3d-portrait.jpg" alt="“Deadpool 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Deadpool 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2600.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+            
+                
+                <a href="/products/eagle-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/eagle-3d-portrait.jpg" alt="“Eagle 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Eagle 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2300.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/ellie-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/ellie-3d-portrait.jpg" alt="“Ellie 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Ellie 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">3000.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/f1-car-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/f1-car-3d-portrait.jpg" alt="“F1 car 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“F1 car 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2500.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/farcry-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/farcry-3d-portrait.jpg" alt="“FARCRY 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“FARCRY 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2800.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/forrest-gump-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/forrest-gump-3d-portrait.jpg" alt="“Forrest Gump 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Forrest Gump 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2650.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/fox-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/fox-3d-portrait.jpg" alt="“Fox 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Fox 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2400.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/freddy-krueger-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/freddy-krueger-3d-portrait.jpg" alt="“Freddy krueger 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Freddy krueger 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">1800.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/goku-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/goku-3d-portrait.jpg" alt="“Goku 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Goku 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2300.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/grendizer-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/grendizer-3d-portrait.jpg" alt="“Grendizer 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Grendizer 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2300.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+            
+                
+                <a href="/products/harry-potter-hat-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/harry-potter-hat-3d-portrait.jpg" alt="“Harry potter hat 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Harry potter hat 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">1500.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/hollow-knight-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/hollow-knight-3d-portrait.jpg" alt="“Hollow Knight 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Hollow Knight 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2400.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/hulk-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/hulk-3d-portrait.jpg" alt="“Hulk 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Hulk 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2500.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/ironman-3d-portrait-1/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/ironman-3d-portrait-1.jpg" alt="“Ironman 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Ironman 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">3200.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/ironman-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/ironman-3d-portrait.jpg" alt="“Ironman 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Ironman 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2000.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/killer-croc-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/killer-croc-3d-portrait.jpg" alt="“Killer croc 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Killer croc 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">4500.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/kratos-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/kratos-3d-portrait.jpg" alt="“Kratos 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Kratos 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2000.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/leon-kennedy-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/leon-kennedy-3d-portrait.jpg" alt="“Leon kennedy 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Leon kennedy 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2700.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/logan-claws-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/logan-claws-3d-portrait.jpg" alt="“Logan claws 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Logan claws 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">1350.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/lord-of-the-rings-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/lord-of-the-rings-3d-portrait.jpg" alt="“Lord of the rings 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Lord of the rings 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">1900.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/luffy-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/luffy-3d-portrait.jpg" alt="“Luffy 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Luffy 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">3200.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+            
+                
+                <a href="/products/manchester-city-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/manchester-city-3d-portrait.jpg" alt="“Manchester City 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Manchester City 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2000.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/mazinger-illuminated-eye-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/mazinger-illuminated-eye-3d-portrait.jpg" alt="“Mazinger illuminated eye 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Mazinger illuminated eye 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2800.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/mercedes-car-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/mercedes-car-3d-portrait.jpg" alt="“Mercedes car 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Mercedes car 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2200.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/mike-wizawski-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/mike-wizawski-3d-portrait.jpg" alt="“Mike wizawski 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Mike wizawski 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2300.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/moon-knight-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/moon-knight-3d-portrait.jpg" alt="“Moon knight 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Moon knight 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2000.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+            
+                
+            
+                
+                <a href="/products/one-piece-logo-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/one-piece-logo-3d-portrait.jpg" alt="“One piece logo 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“One piece logo 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">1500.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/popeye-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/popeye-3d-portrait.jpg" alt="“Popeye 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Popeye 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">1800.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/porsche-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/porsche-3d-portrait.jpg" alt="“Porsche 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Porsche 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2400.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/reiner-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/reiner-3d-portrait.jpg" alt="“Reiner 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Reiner 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2600.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/repunzel-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/repunzel-3d-portrait.jpg" alt="“Repunzel 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Repunzel 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">1600.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/rorschach-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/rorschach-3d-portrait.jpg" alt="“Rorschach 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Rorschach 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2600.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/ryuk-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/ryuk-3d-portrait.jpg" alt="“Ryuk 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Ryuk 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">3200.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/software-engineer-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/software-engineer-3d-portrait.jpg" alt="“Software Engineer 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Software Engineer 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2500.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/spidergwen-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/spidergwen-3d-portrait.jpg" alt="“Spidergwen 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Spidergwen 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">3200.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/spiderman-logo-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/spiderman-logo-3d-portrait.jpg" alt="“Spiderman logo 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Spiderman logo 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">1600.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/spiderman-miles-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/spiderman-miles-3d-portrait.jpg" alt="“Spiderman Miles 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Spiderman Miles 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2500.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/stitch-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/stitch-3d-portrait.jpg" alt="“Stitch 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Stitch 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2200.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/the-amazing-spiderman-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/the-amazing-spiderman-portrait.jpg" alt="“The amazing spiderman portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“The amazing spiderman portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2600.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/the-mandalorian-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/the-mandalorian-3d-portrait.jpg" alt="“The Mandalorian 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“The Mandalorian 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2000.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/the-mask-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/the-mask-3d-portrait.jpg" alt="“The mask 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“The mask 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">1700.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/thing-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/thing-3d-portrait.jpg" alt="“Thing 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Thing 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">1600.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/tooth-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/tooth-3d-portrait.jpg" alt="“Tooth 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Tooth 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2200.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/tucson-car-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/tucson-car-3d-portrait.jpg" alt="“Tucson car 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Tucson car 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2500.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/ultras-ahlawy-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/ultras-ahlawy-3d-portrait.jpg" alt="“Ultras Ahlawy 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Ultras Ahlawy 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2100.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/vegeta-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/vegeta-3d-portrait.jpg" alt="“Vegeta 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Vegeta 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2100.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/vendetta-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/vendetta-3d-portrait.jpg" alt="“Vendetta 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Vendetta 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2700.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/venom-vs-spiderman-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/venom-vs-spiderman-portrait.jpg" alt="“Venom vs spiderman portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Venom vs spiderman portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">4000.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/wilson-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/wilson-3d-portrait.jpg" alt="“Wilson 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Wilson 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2200.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/witcher-medallion-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/witcher-medallion-3d-portrait.jpg" alt="“Witcher Medallion 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Witcher Medallion 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2800.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+            
+                
+            
+                
+                <a href="/products/world-cup-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/world-cup-3d-portrait.jpg" alt="“World cup 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“World cup 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2000.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+                
+                <a href="/products/zamalek-3d-portrait/" class="glass-card product-card group block">
+                    <div class="relative overflow-hidden aspect-[4/5]">
+                        <img src="/assets/images/zamalek-3d-portrait.jpg" alt="“Zamalek 3d portrait”" class="w-full h-full object-cover">
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Zamalek 3d portrait”</h3>
+                        <div class="flex justify-between items-center mt-4">
+                            <span class="text-accent font-semibold text-xl">2000.0 EGP</span>
+                            <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                        </div>
+                    </div>
+                </a>
+                
+            
+        </div>
+    </div>
+</section>
+
+
+    <footer class="bg-black py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-6 md:mb-0">
+                <span class="font-display font-bold text-2xl tracking-wider text-white">TABLORIA <span class="text-accent">3D</span></span>
+                <p class="text-gray-500 mt-2 text-sm">© 2026 Tabloria 3D. All rights reserved.</p>
+            </div>
+            <div class="flex space-x-6">
+                <a href="https://wa.me/201067826826" target="_blank" class="text-gray-400 hover:text-green-500 text-xl transition-colors"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://www.instagram.com/tabloria3d?igsh=dnMwZzV1M3o4Mzk5&utm_source=qr" target="_blank" class="text-gray-400 hover:text-pink-500 text-xl transition-colors"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/share/18wS3MNBQi/?mibextid=wwXIfr" target="_blank" class="text-gray-400 hover:text-blue-500 text-xl transition-colors"><i class="fab fa-facebook"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Search Overlay -->
+    <div id="search-overlay" class="fixed inset-0 bg-black/95 z-50 hidden flex-col pt-24 px-4 sm:px-6 lg:px-8 backdrop-blur-sm">
+        <div class="max-w-3xl mx-auto w-full relative">
+            <button id="close-search" class="absolute -top-12 right-0 text-white hover:text-accent transition-colors">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+            <input type="text" id="search-input" class="w-full bg-secondary/80 border border-gray-700 text-white rounded-lg px-6 py-4 text-xl focus:outline-none focus:border-accent" placeholder="Search products...">
+            <div id="search-results" class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[60vh] overflow-y-auto"></div>
+        </div>
+    </div>
+
+    <!-- Cart Overlay -->
+    <div id="cart-overlay" class="fixed inset-0 bg-black/80 z-50 hidden justify-end backdrop-blur-sm">
+        <div class="w-full max-w-md bg-secondary h-full shadow-2xl flex flex-col transform transition-transform translate-x-full" id="cart-drawer">
+            <div class="p-6 border-b border-gray-800 flex justify-between items-center">
+                <h2 class="text-2xl font-display font-bold text-white">Your Cart</h2>
+                <button id="close-cart" class="text-gray-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto p-6 space-y-4" id="cart-items">
+                <!-- Cart items injected here -->
+            </div>
+            
+            <div class="p-6 border-t border-gray-800 bg-black/50">
+                <div class="flex justify-between items-center mb-6">
+                    <span class="text-gray-400">Total:</span>
+                    <span class="text-2xl font-bold text-accent" id="cart-total">0 EGP</span>
+                </div>
+                <button id="checkout-btn" class="w-full btn-primary mb-2">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="fixed inset-0 bg-black/90 z-[60] hidden flex-col justify-center items-center px-4 backdrop-blur-sm">
+        <div class="glass-card w-full max-w-lg p-8 relative">
+            <button id="close-checkout" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
+            <h2 class="text-2xl font-display font-bold text-white mb-6">Complete Your Order</h2>
+            <form id="checkout-form" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-1">Full Name</label>
+                    <input type="text" id="checkout-name" required class="input-field" placeholder="John Doe">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-1">WhatsApp / Phone Number</label>
+                    <input type="tel" id="checkout-phone" required class="input-field" placeholder="01xxxxxxxxx">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-1">Email</label>
+                    <input type="email" id="checkout-email" required class="input-field" placeholder="your@email.com">
+                </div>
+                <button type="submit" class="w-full btn-primary mt-6 group">
+                    <span>Submit Order via WhatsApp</span>
+                    <i class="fab fa-whatsapp ml-2 text-xl group-hover:scale-110 transition-transform"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <script src="/assets/js/cart.js"></script>
+    <script>
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Search UI logic
+        const searchOverlay = document.getElementById('search-overlay');
+        const searchInput = document.getElementById('search-input');
+        
+        function openSearch() {
+            searchOverlay.classList.remove('hidden');
+            searchOverlay.classList.add('flex');
+            setTimeout(() => searchInput.focus(), 100);
+        }
+        
+        function closeSearch() {
+            searchOverlay.classList.add('hidden');
+            searchOverlay.classList.remove('flex');
+        }
+
+        document.getElementById('search-btn').addEventListener('click', openSearch);
+        document.getElementById('mobile-search-btn').addEventListener('click', openSearch);
+        document.getElementById('close-search').addEventListener('click', closeSearch);
+        
+        // Search Logic
+        let searchIndex;
+        let productsData = {};
+
+        fetch('/search.json')
+            .then(res => res.json())
+            .then(data => {
+                searchIndex = lunr(function () {
+                    this.ref('url');
+                    this.field('title');
+                    this.field('category');
+                    
+                    data.forEach(function (doc) {
+                        this.add(doc);
+                        productsData[doc.url] = doc;
+                    }, this)
+                });
+            });
+
+        searchInput.addEventListener('input', function() {
+            const query = this.value;
+            const resultsContainer = document.getElementById('search-results');
+            
+            if (query.length < 2) {
+                resultsContainer.innerHTML = '';
+                return;
+            }
+
+            const results = searchIndex.search(query);
+            
+            if (results.length === 0) {
+                resultsContainer.innerHTML = '<p class="text-gray-400">No products found.</p>';
+                return;
+            }
+
+            resultsContainer.innerHTML = results.map(result => {
+                const item = productsData[result.ref];
+                return `
+                    <a href="${item.url}" class="flex items-center gap-4 bg-secondary p-4 rounded-lg hover:bg-gray-800 transition-colors">
+                        <img src="/${item.image}" alt="${item.title}" class="w-16 h-16 object-cover rounded">
+                        <div>
+                            <h4 class="text-white font-medium">${item.title}</h4>
+                            <p class="text-accent">${item.price} EGP</p>
+                        </div>
+                    </a>
+                `;
+            }).join('');
+        });
+    </script>
+</body>
+</html>

@@ -3,23 +3,23 @@ layout: default
 ---
 
 <!-- Hero Section -->
-<section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden">
-    <div class="absolute inset-0 z-0">
-        <div class="absolute inset-0 bg-gradient-to-b from-transparent via-primary to-primary opacity-90 z-10"></div>
-        <div class="absolute top-0 right-0 w-96 h-96 bg-accent opacity-20 rounded-full mix-blend-screen filter blur-3xl animate-blob"></div>
-        <div class="absolute bottom-0 left-0 w-96 h-96 bg-red-900 opacity-20 rounded-full mix-blend-screen filter blur-3xl animate-blob animation-delay-2000"></div>
+<section id="home" class="relative pt-32 pb-20 lg:pt-48 lg:pb-32 overflow-hidden bg-black">
+    <!-- Image Slider Background -->
+    <div id="hero-slider" class="absolute inset-0 z-0">
+        {% assign hero_images = site.products | map: 'image' | slice: 0, 5 %}
+        {% for img in hero_images %}
+            <div class="hero-slide absolute inset-0 bg-cover bg-center bg-no-repeat transition-opacity duration-1000 ease-in-out {% if forloop.first %}opacity-50{% else %}opacity-0{% endif %}" style="background-image: url('{{ '/' | relative_url }}{{ img }}');"></div>
+        {% endfor %}
+        <div class="absolute inset-0 bg-gradient-to-b from-primary/80 via-primary/50 to-primary z-10"></div>
     </div>
+    
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 text-center animate-fade-in">
         <h1 class="text-5xl md:text-7xl font-display font-extrabold text-white mb-6 tracking-tight">
             Bring Imagination to <span class="text-transparent bg-clip-text bg-gradient-to-r from-accent to-red-500">Reality</span>
         </h1>
-        <p class="mt-4 max-w-2xl text-xl text-gray-400 mx-auto mb-10">
+        <p class="mt-4 max-w-2xl text-xl text-gray-300 mx-auto mb-10">
             Premium 3D printed portraits, figures, and collectibles crafted with exceptional detail and quality.
         </p>
-        <div class="flex justify-center gap-4">
-            <a href="#products" class="btn-primary">Explore Collection</a>
-            <a href="#contact" class="btn-outline">Custom Order</a>
-        </div>
     </div>
 </section>
 
@@ -31,17 +31,19 @@ layout: default
             <div class="w-24 h-1 bg-accent mx-auto rounded-full"></div>
         </div>
         
-        <div class="flex justify-center mb-10 gap-4">
-            <a href="{{ '/collections/figures/' | relative_url }}" class="px-4 py-2 rounded-full border border-gray-600 text-white hover:bg-accent hover:border-accent transition-colors">Figures</a>
-            <a href="{{ '/collections/portraits/' | relative_url }}" class="px-4 py-2 rounded-full border border-gray-600 text-white hover:bg-accent hover:border-accent transition-colors">Portraits</a>
-        </div>
-
         <!-- Products Grid -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {% for product in site.products limit:8 %}
-            <a href="{{ product.url | relative_url }}" class="glass-card product-card group block">
+            {% assign imgArray = product.images | default: "" %}
+            {% if imgArray == "" %}
+                {% assign imgJSON = '["' | append: product.image | append: '"]' %}
+            {% else %}
+                {% assign imgJSON = product.images | jsonify %}
+            {% endif %}
+            
+            <a href="{{ product.url | relative_url }}" class="glass-card product-card group block hover-slider" data-images='{{ imgJSON | escape }}'>
                 <div class="relative overflow-hidden aspect-[4/5]">
-                    <img src="{{ '/' | relative_url }}{{ product.image }}" alt="{{ product.title }}" class="w-full h-full object-cover">
+                    <img src="{{ '/' | relative_url }}{% if product.images %}{{ product.images[0] }}{% else %}{{ product.image }}{% endif %}" alt="{{ product.title }}" class="w-full h-full object-cover transition-opacity duration-300 main-img">
                 </div>
                 <div class="p-6">
                     <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">{{ product.title }}</h3>
@@ -53,70 +55,90 @@ layout: default
             </a>
             {% endfor %}
         </div>
-        
-        <div class="mt-12 text-center">
-            <a href="{{ '/collections/figures/' | relative_url }}" class="btn-outline mr-4">View All Figures</a>
-            <a href="{{ '/collections/portraits/' | relative_url }}" class="btn-outline">View All Portraits</a>
-        </div>
     </div>
 </section>
 
 <!-- Contact Section -->
 <section id="contact" class="py-20 bg-secondary/50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
-            <div>
-                <h2 class="text-3xl md:text-5xl font-display font-bold text-white mb-6">Get In Touch</h2>
-                <p class="text-gray-400 mb-8 text-lg">Have a question about a product or want to request a custom 3D print? Fill out the form and we'll get back to you shortly.</p>
-                
-                <div class="space-y-6">
-                    <div class="flex items-center text-gray-300">
-                        <i class="fas fa-envelope text-accent text-2xl mr-4 w-8 text-center"></i>
-                        <span>tabloria3d@gmail.com</span>
-                    </div>
-                    <div class="flex items-center text-gray-300">
-                        <i class="fab fa-whatsapp text-accent text-2xl mr-4 w-8 text-center"></i>
-                        <span>01277073553</span>
-                    </div>
-                </div>
-            </div>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-3xl md:text-5xl font-display font-bold text-white mb-6">Get In Touch</h2>
+        <p class="text-gray-400 mb-12 text-lg">Reach out to us directly through WhatsApp or follow us on our social media channels.</p>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <a href="https://wa.me/201067826826" target="_blank" class="glass-card p-8 flex flex-col items-center justify-center hover:border-green-500 transition-colors group">
+                <i class="fab fa-whatsapp text-6xl text-green-500 mb-4 group-hover:scale-110 transition-transform"></i>
+                <span class="text-white font-bold text-xl">WhatsApp</span>
+                <span class="text-gray-400 text-sm mt-2">01067826826</span>
+            </a>
             
-            <div class="glass-card p-8">
-                <!-- Replace YOUR_FORMSPREE_ENDPOINT with the actual endpoint from Formspree -->
-                <form action="https://formspree.io/f/YOUR_FORMSPREE_ENDPOINT" method="POST" class="space-y-6">
-                    <div>
-                        <label for="name" class="block text-sm font-medium text-gray-300 mb-2">Name</label>
-                        <input type="text" id="name" name="name" required class="input-field" placeholder="Your Name">
-                    </div>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <label for="email" class="block text-sm font-medium text-gray-300 mb-2">Email</label>
-                            <input type="email" id="email" name="_replyto" required class="input-field" placeholder="your@email.com">
-                        </div>
-                        <div>
-                            <label for="phone" class="block text-sm font-medium text-gray-300 mb-2">WhatsApp / Phone</label>
-                            <input type="tel" id="phone" name="phone" required class="input-field" placeholder="+20 123 456 7890">
-                        </div>
-                    </div>
-                    <div>
-                        <label for="product" class="block text-sm font-medium text-gray-300 mb-2">Interested Product (Optional)</label>
-                        <select id="product" name="product" class="input-field bg-primary">
-                            <option value="General Inquiry">General Inquiry</option>
-                            <option value="Custom Print">Custom Print Request</option>
-                        </select>
-                    </div>
-                    <div>
-                        <label for="message" class="block text-sm font-medium text-gray-300 mb-2">Message</label>
-                        <textarea id="message" name="message" rows="4" required class="input-field resize-none" placeholder="How can we help you?"></textarea>
-                    </div>
-                    <!-- Formspree hidden inputs -->
-                    <input type="hidden" name="_subject" value="New submission from Tabloria 3D!">
-                    <button type="submit" class="w-full btn-primary group">
-                        <span>Send Message</span>
-                        <i class="fas fa-paper-plane ml-2 group-hover:translate-x-1 transition-transform"></i>
-                    </button>
-                </form>
-            </div>
+            <a href="https://www.instagram.com/tabloria3d?igsh=dnMwZzV1M3o4Mzk5&utm_source=qr" target="_blank" class="glass-card p-8 flex flex-col items-center justify-center hover:border-pink-500 transition-colors group">
+                <i class="fab fa-instagram text-6xl text-pink-500 mb-4 group-hover:scale-110 transition-transform"></i>
+                <span class="text-white font-bold text-xl">Instagram</span>
+                <span class="text-gray-400 text-sm mt-2">@tabloria3d</span>
+            </a>
+            
+            <a href="https://www.facebook.com/share/18wS3MNBQi/?mibextid=wwXIfr" target="_blank" class="glass-card p-8 flex flex-col items-center justify-center hover:border-blue-500 transition-colors group">
+                <i class="fab fa-facebook text-6xl text-blue-500 mb-4 group-hover:scale-110 transition-transform"></i>
+                <span class="text-white font-bold text-xl">Facebook</span>
+                <span class="text-gray-400 text-sm mt-2">Tabloria 3D</span>
+            </a>
         </div>
     </div>
 </section>
+
+<script>
+    // Hero Slider Logic
+    document.addEventListener('DOMContentLoaded', () => {
+        const heroSlides = document.querySelectorAll('.hero-slide');
+        let currentHeroSlide = 0;
+        
+        if(heroSlides.length > 1) {
+            setInterval(() => {
+                heroSlides[currentHeroSlide].classList.remove('opacity-50');
+                heroSlides[currentHeroSlide].classList.add('opacity-0');
+                
+                currentHeroSlide = (currentHeroSlide + 1) % heroSlides.length;
+                
+                heroSlides[currentHeroSlide].classList.remove('opacity-0');
+                heroSlides[currentHeroSlide].classList.add('opacity-50');
+            }, 4000);
+        }
+    });
+
+    // Hover Slider for Products
+    document.querySelectorAll('.hover-slider').forEach(card => {
+        let timer;
+        let imgIndex = 0;
+        const imgEl = card.querySelector('.main-img');
+        const imagesData = card.getAttribute('data-images');
+        if(!imagesData) return;
+        
+        let images = [];
+        try {
+            images = JSON.parse(imagesData.replace(/&quot;/g, '"'));
+        } catch(e) {}
+        
+        if(images.length > 1) {
+            const startSlide = () => {
+                timer = setInterval(() => {
+                    imgIndex = (imgIndex + 1) % images.length;
+                    imgEl.style.opacity = 0.8;
+                    setTimeout(() => {
+                        imgEl.src = '{{ "/" | relative_url }}' + images[imgIndex];
+                        imgEl.style.opacity = 1;
+                    }, 150);
+                }, 1200);
+            };
+            const stopSlide = () => {
+                clearInterval(timer);
+                imgIndex = 0;
+                imgEl.src = '{{ "/" | relative_url }}' + images[0];
+            };
+            
+            card.addEventListener('mouseenter', startSlide);
+            card.addEventListener('mouseleave', stopSlide);
+            card.addEventListener('touchstart', startSlide);
+            card.addEventListener('touchend', stopSlide);
+        }
+    });
+</script>

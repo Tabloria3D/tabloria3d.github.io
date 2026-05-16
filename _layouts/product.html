@@ -5,9 +5,33 @@ layout: default
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
     <div class="glass-card p-8 md:p-12">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
-            <!-- Product Image -->
-            <div class="rounded-xl overflow-hidden bg-black/50 border border-gray-800">
-                <img src="{{ '/' | relative_url }}{{ page.image }}" alt="{{ page.title }}" class="w-full h-auto object-cover">
+            <!-- Product Gallery (Slider) -->
+            <div class="relative rounded-xl overflow-hidden bg-black/50 border border-gray-800" id="product-slider">
+                <!-- Main Image -->
+                <div class="aspect-[4/5] relative" id="slider-main">
+                    {% if page.images %}
+                        {% for img in page.images %}
+                            <img src="{{ '/' | relative_url }}{{ img }}" alt="{{ page.title }}" class="w-full h-full object-cover absolute inset-0 transition-opacity duration-500 slider-img {% if forloop.first %}opacity-100{% else %}opacity-0{% endif %}">
+                        {% endfor %}
+                    {% else %}
+                        <img src="{{ '/' | relative_url }}{{ page.image }}" alt="{{ page.title }}" class="w-full h-full object-cover absolute inset-0 opacity-100">
+                    {% endif %}
+                </div>
+                
+                {% if page.images and page.images.size > 1 %}
+                <!-- Controls -->
+                <button onclick="prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-accent transition-colors"><i class="fas fa-chevron-left"></i></button>
+                <button onclick="nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/50 text-white flex items-center justify-center hover:bg-accent transition-colors"><i class="fas fa-chevron-right"></i></button>
+                
+                <!-- Thumbnails -->
+                <div class="flex gap-2 p-4 overflow-x-auto bg-black/80 absolute bottom-0 w-full">
+                    {% for img in page.images %}
+                        <button onclick="goToSlide({{ forloop.index0 }})" class="w-16 h-16 flex-shrink-0 rounded border-2 {% if forloop.first %}border-accent{% else %}border-transparent{% endif %} overflow-hidden thumb-btn">
+                            <img src="{{ '/' | relative_url }}{{ img }}" class="w-full h-full object-cover">
+                        </button>
+                    {% endfor %}
+                </div>
+                {% endif %}
             </div>
 
             <!-- Product Details -->
@@ -30,12 +54,11 @@ layout: default
                 </div>
 
                 <div class="space-y-4">
-                    <!-- Mailto Order Button -->
-                    <button onclick="orderProduct('{{ page.title | escape }}', '{{ page.price }}')" class="w-full btn-primary group flex justify-center items-center gap-2">
-                        <i class="fas fa-envelope"></i>
-                        <span>Order via Email</span>
+                    <!-- Add to Cart Button -->
+                    <button onclick="addToCart('{{ page.title | escape }}', '{{ page.price }}', '{{ '/' | relative_url }}{% if page.images %}{{ page.images[0] }}{% else %}{{ page.image }}{% endif %}')" class="w-full btn-primary group flex justify-center items-center gap-2">
+                        <i class="fas fa-cart-plus"></i>
+                        <span>Add to Cart</span>
                     </button>
-                    <p class="text-sm text-gray-500 text-center">Clicking order will open your email client to send an order request.</p>
                 </div>
             </div>
         </div>
@@ -48,9 +71,15 @@ layout: default
             {% assign similar_count = 0 %}
             {% for product in site.products %}
                 {% if product.category == page.category and product.url != page.url and similar_count < 4 %}
-                    <a href="{{ product.url | relative_url }}" class="glass-card product-card group block">
+                    {% assign imgArray = product.images | default: "" %}
+                    {% if imgArray == "" %}
+                        {% assign imgJSON = '["' | append: product.image | append: '"]' %}
+                    {% else %}
+                        {% assign imgJSON = product.images | jsonify %}
+                    {% endif %}
+                    <a href="{{ product.url | relative_url }}" class="glass-card product-card group block hover-slider" data-images='{{ imgJSON | escape }}'>
                         <div class="relative overflow-hidden aspect-[4/5]">
-                            <img src="{{ '/' | relative_url }}{{ product.image }}" alt="{{ product.title }}" class="w-full h-full object-cover">
+                            <img src="{{ '/' | relative_url }}{% if product.images %}{{ product.images[0] }}{% else %}{{ product.image }}{% endif %}" alt="{{ product.title }}" class="w-full h-full object-cover transition-opacity duration-300 main-img">
                         </div>
                         <div class="p-6">
                             <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">{{ product.title }}</h3>
@@ -68,10 +97,74 @@ layout: default
 </div>
 
 <script>
-function orderProduct(title, price) {
-    const email = "tabloria3d@gmail.com";
-    const subject = encodeURIComponent(`Order Request: ${title}`);
-    const body = encodeURIComponent(`Hello,\n\nI would like to order the following product:\n\nProduct: ${title}\nPrice: ${price} EGP\n\nPlease let me know the next steps for payment and delivery.\n\nThank you.`);
-    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
-}
+    // Main Product Slider Logic
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slider-img');
+    const thumbs = document.querySelectorAll('.thumb-btn');
+    let slideInterval;
+
+    function goToSlide(index) {
+        if(slides.length <= 1) return;
+        slides[currentSlide].classList.remove('opacity-100');
+        slides[currentSlide].classList.add('opacity-0');
+        if(thumbs.length > 0) thumbs[currentSlide].classList.replace('border-accent', 'border-transparent');
+        
+        currentSlide = index;
+        if(currentSlide >= slides.length) currentSlide = 0;
+        if(currentSlide < 0) currentSlide = slides.length - 1;
+        
+        slides[currentSlide].classList.remove('opacity-0');
+        slides[currentSlide].classList.add('opacity-100');
+        if(thumbs.length > 0) thumbs[currentSlide].classList.replace('border-transparent', 'border-accent');
+    }
+
+    function nextSlide() { goToSlide(currentSlide + 1); }
+    function prevSlide() { goToSlide(currentSlide - 1); }
+
+    // Auto slideshow logic for this product
+    if(slides.length > 1) {
+        slideInterval = setInterval(nextSlide, 3000);
+        document.getElementById('product-slider').addEventListener('mouseenter', () => clearInterval(slideInterval));
+        document.getElementById('product-slider').addEventListener('mouseleave', () => {
+            slideInterval = setInterval(nextSlide, 3000);
+        });
+    }
+
+    // Hover Slider for Similar Products
+    document.querySelectorAll('.hover-slider').forEach(card => {
+        let timer;
+        let imgIndex = 0;
+        const imgEl = card.querySelector('.main-img');
+        const imagesData = card.getAttribute('data-images');
+        if(!imagesData) return;
+        
+        // Decode JSON safely by replacing escaped quotes
+        let images = [];
+        try {
+            images = JSON.parse(imagesData.replace(/&quot;/g, '"'));
+        } catch(e) {}
+        
+        if(images.length > 1) {
+            const startSlide = () => {
+                timer = setInterval(() => {
+                    imgIndex = (imgIndex + 1) % images.length;
+                    imgEl.style.opacity = 0.8;
+                    setTimeout(() => {
+                        imgEl.src = '{{ "/" | relative_url }}' + images[imgIndex];
+                        imgEl.style.opacity = 1;
+                    }, 150);
+                }, 1200);
+            };
+            const stopSlide = () => {
+                clearInterval(timer);
+                imgIndex = 0;
+                imgEl.src = '{{ "/" | relative_url }}' + images[0];
+            };
+            
+            card.addEventListener('mouseenter', startSlide);
+            card.addEventListener('mouseleave', stopSlide);
+            card.addEventListener('touchstart', startSlide);
+            card.addEventListener('touchend', stopSlide);
+        }
+    });
 </script>

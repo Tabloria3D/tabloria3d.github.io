@@ -1,0 +1,649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>“Wolevrine figure”</title>
+    <meta name="description" content="Premium 3D printed portraits, figures, and collectibles crafted with exceptional detail and quality.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#000000',
+                        secondary: '#1a1a1a',
+                        accent: '#e53e3e',
+                        textLight: '#f3f4f6',
+                        textDark: '#9ca3af',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Outfit', 'sans-serif'],
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                    }
+                }
+            }
+        }
+    </script>
+    <style type="text/tailwindcss">
+        @layer base {
+            body {
+                @apply bg-primary text-textLight font-sans antialiased;
+            }
+            h1, h2, h3, h4, h5, h6 {
+                @apply font-display tracking-tight;
+            }
+        }
+        @layer components {
+            .btn-primary {
+                @apply inline-flex items-center justify-center px-6 py-3 border border-transparent text-base font-medium rounded-md text-white bg-accent hover:bg-red-700 transition-colors duration-300 shadow-lg hover:shadow-red-500/50;
+            }
+            .btn-outline {
+                @apply inline-flex items-center justify-center px-6 py-3 border border-gray-600 text-base font-medium rounded-md text-white hover:bg-gray-800 transition-colors duration-300;
+            }
+            .glass-card {
+                @apply bg-secondary/80 backdrop-blur-md border border-gray-800 rounded-xl overflow-hidden shadow-2xl transition-all duration-300 hover:border-gray-600;
+            }
+            .input-field {
+                @apply w-full bg-primary border border-gray-700 rounded-md py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition-all;
+            }
+        }
+
+        .product-card:hover img {
+            transform: scale(1.05);
+        }
+        .product-card img {
+            transition: transform 0.5s ease;
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-black text-gray-100 font-sans overflow-x-hidden selection:bg-red-600 selection:text-white">
+
+    <nav class="fixed w-full z-50 bg-primary/90 backdrop-blur-md border-b border-gray-800 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center gap-3">
+                    <a href="/" class="font-display font-bold text-2xl tracking-wider text-white">TABLORIA <span class="text-accent">3D</span></a>
+                </div>
+                <div class="hidden md:flex space-x-6 items-center">
+                    <a href="/#home" class="text-gray-300 hover:text-white transition-colors duration-200">Home</a>
+                    <a href="/collections/portraits/" class="text-gray-300 hover:text-white transition-colors duration-200">Portraits</a>
+                    <a href="/collections/figures/" class="text-gray-300 hover:text-white transition-colors duration-200">Figures</a>
+                    <a href="/#contact" class="text-gray-300 hover:text-white transition-colors duration-200">Contact Us</a>
+                    
+                    <button id="search-btn" class="text-gray-300 hover:text-white focus:outline-none">
+                        <i class="fas fa-search text-xl"></i>
+                    </button>
+                    
+                    <button id="cart-btn" class="text-gray-300 hover:text-accent relative focus:outline-none ml-4">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="cart-count" class="absolute -top-2 -right-2 bg-accent text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">0</span>
+                    </button>
+
+                    <div class="border-l border-gray-700 h-6 mx-2"></div>
+                    
+                    <!-- Social Icons -->
+                    <a href="https://wa.me/201067826826" target="_blank" class="text-green-500 hover:text-green-400 text-xl transition-colors"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.instagram.com/tabloria3d?igsh=dnMwZzV1M3o4Mzk5&utm_source=qr" target="_blank" class="text-pink-500 hover:text-pink-400 text-xl transition-colors"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/share/18wS3MNBQi/?mibextid=wwXIfr" target="_blank" class="text-blue-500 hover:text-blue-400 text-xl transition-colors"><i class="fab fa-facebook"></i></a>
+                </div>
+                <div class="md:hidden flex items-center gap-4">
+                    <button id="mobile-search-btn" class="text-gray-300 hover:text-white focus:outline-none">
+                        <i class="fas fa-search text-xl"></i>
+                    </button>
+                    <button id="mobile-cart-btn" class="text-gray-300 hover:text-accent relative focus:outline-none">
+                        <i class="fas fa-shopping-cart text-xl"></i>
+                        <span id="mobile-cart-count" class="absolute -top-2 -right-2 bg-accent text-white text-xs rounded-full h-5 w-5 flex items-center justify-center font-bold">0</span>
+                    </button>
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-secondary border-b border-gray-800">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="/#home" class="block px-3 py-2 rounded-md text-base font-medium text-white hover:bg-gray-800">Home</a>
+                <a href="/collections/portraits/" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Portraits</a>
+                <a href="/collections/figures/" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Figures</a>
+                <a href="/#contact" class="block px-3 py-2 rounded-md text-base font-medium text-gray-300 hover:text-white hover:bg-gray-800">Contact Us</a>
+                <div class="flex gap-4 px-3 py-2 mt-2">
+                    <a href="https://wa.me/201067826826" target="_blank" class="text-green-500 hover:text-green-400 text-2xl"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://www.instagram.com/tabloria3d?igsh=dnMwZzV1M3o4Mzk5&utm_source=qr" target="_blank" class="text-pink-500 hover:text-pink-400 text-2xl"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.facebook.com/share/18wS3MNBQi/?mibextid=wwXIfr" target="_blank" class="text-blue-500 hover:text-blue-400 text-2xl"><i class="fab fa-facebook"></i></a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="glass-card p-8 md:p-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-start">
+            <!-- Product Gallery (Slider) -->
+            <div class="relative rounded-xl overflow-hidden bg-black/50 border border-gray-800" id="product-slider">
+                <!-- Main Image -->
+                <div class="aspect-[4/5] relative" id="slider-main">
+                    
+                        <img src="/assets/images/wolevrine-figure.jpg" alt="“Wolevrine figure”" class="w-full h-full object-cover absolute inset-0 opacity-100">
+                    
+                </div>
+                
+                
+            </div>
+
+            <!-- Product Details -->
+            <div>
+                <nav class="flex mb-4 text-sm text-gray-400">
+                    <ol class="flex items-center space-x-2">
+                        <li><a href="/" class="hover:text-white transition-colors">Home</a></li>
+                        <li><span class="mx-2">/</span></li>
+                        <li><a href="/collections/figures/" class="hover:text-white transition-colors capitalize">figures</a></li>
+                        <li><span class="mx-2">/</span></li>
+                        <li class="text-white truncate" aria-current="page">“Wolevrine figure”</li>
+                    </ol>
+                </nav>
+
+                <h1 class="text-3xl md:text-5xl font-display font-bold text-white mb-4">“Wolevrine figure”</h1>
+                <p class="text-2xl text-accent font-semibold mb-6">3500.0 EGP</p>
+                
+                <div class="prose prose-invert mb-8 text-gray-300">
+                    <p>“Wolverine figure”<br />
+-45cm tall<br />
+-3d printed &amp; hand painted.</p><br />
+
+                </div>
+
+                <div class="space-y-4">
+                    <!-- Add to Cart Button -->
+                    <button onclick="addToCart('“Wolevrine figure”', '3500.0', '/assets/images/wolevrine-figure.jpg')" class="w-full btn-primary group flex justify-center items-center gap-2">
+                        <i class="fas fa-cart-plus"></i>
+                        <span>Add to Cart</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Similar Products -->
+    <div class="mt-20">
+        <h2 class="text-2xl md:text-4xl font-display font-bold text-white mb-8">Similar Products</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                    
+                    <a href="/products/blood-sport-figure/" class="glass-card product-card group block hover-slider" data-images='[&quot;assets/images/blood-sport-figure.jpg&quot;]'>
+                        <div class="relative overflow-hidden aspect-[4/5]">
+                            <img src="/assets/images/blood-sport-figure.jpg" alt="“Blood Sport Figure”" class="w-full h-full object-cover transition-opacity duration-300 main-img">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Blood Sport Figure”</h3>
+                            <div class="flex justify-between items-center mt-4">
+                                <span class="text-accent font-semibold text-xl">6800.0 EGP</span>
+                                <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                            </div>
+                        </div>
+                    </a>
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                    
+                    <a href="/products/drogon-figure/" class="glass-card product-card group block hover-slider" data-images='[&quot;assets/images/drogon-figure.jpg&quot;]'>
+                        <div class="relative overflow-hidden aspect-[4/5]">
+                            <img src="/assets/images/drogon-figure.jpg" alt="“Drogon figure”" class="w-full h-full object-cover transition-opacity duration-300 main-img">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Drogon figure”</h3>
+                            <div class="flex justify-between items-center mt-4">
+                                <span class="text-accent font-semibold text-xl">4300.0 EGP</span>
+                                <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                            </div>
+                        </div>
+                    </a>
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                    
+                    <a href="/products/groot-3d-wanted-poster/" class="glass-card product-card group block hover-slider" data-images='[&quot;assets/images/groot-3d-wanted-poster.jpg&quot;]'>
+                        <div class="relative overflow-hidden aspect-[4/5]">
+                            <img src="/assets/images/groot-3d-wanted-poster.jpg" alt="“Groot 3d wanted poster”" class="w-full h-full object-cover transition-opacity duration-300 main-img">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Groot 3d wanted poster”</h3>
+                            <div class="flex justify-between items-center mt-4">
+                                <span class="text-accent font-semibold text-xl">5500.0 EGP</span>
+                                <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                            </div>
+                        </div>
+                    </a>
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+                    
+                    
+                    <a href="/products/luffy-3d-wanted-poster/" class="glass-card product-card group block hover-slider" data-images='[&quot;assets/images/luffy-3d-wanted-poster.jpg&quot;]'>
+                        <div class="relative overflow-hidden aspect-[4/5]">
+                            <img src="/assets/images/luffy-3d-wanted-poster.jpg" alt="“Luffy 3d wanted poster”" class="w-full h-full object-cover transition-opacity duration-300 main-img">
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-lg font-bold text-white mb-2 line-clamp-2">“Luffy 3d wanted poster”</h3>
+                            <div class="flex justify-between items-center mt-4">
+                                <span class="text-accent font-semibold text-xl">3200.0 EGP</span>
+                                <span class="text-sm text-gray-400 group-hover:text-white transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></span>
+                            </div>
+                        </div>
+                    </a>
+                    
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+                
+            
+        </div>
+    </div>
+</div>
+
+<script>
+    // Main Product Slider Logic
+    let currentSlide = 0;
+    const slides = document.querySelectorAll('.slider-img');
+    const thumbs = document.querySelectorAll('.thumb-btn');
+    let slideInterval;
+
+    function goToSlide(index) {
+        if(slides.length <= 1) return;
+        slides[currentSlide].classList.remove('opacity-100');
+        slides[currentSlide].classList.add('opacity-0');
+        if(thumbs.length > 0) thumbs[currentSlide].classList.replace('border-accent', 'border-transparent');
+        
+        currentSlide = index;
+        if(currentSlide >= slides.length) currentSlide = 0;
+        if(currentSlide < 0) currentSlide = slides.length - 1;
+        
+        slides[currentSlide].classList.remove('opacity-0');
+        slides[currentSlide].classList.add('opacity-100');
+        if(thumbs.length > 0) thumbs[currentSlide].classList.replace('border-transparent', 'border-accent');
+    }
+
+    function nextSlide() { goToSlide(currentSlide + 1); }
+    function prevSlide() { goToSlide(currentSlide - 1); }
+
+    // Auto slideshow logic for this product
+    if(slides.length > 1) {
+        slideInterval = setInterval(nextSlide, 3000);
+        document.getElementById('product-slider').addEventListener('mouseenter', () => clearInterval(slideInterval));
+        document.getElementById('product-slider').addEventListener('mouseleave', () => {
+            slideInterval = setInterval(nextSlide, 3000);
+        });
+    }
+
+    // Hover Slider for Similar Products
+    document.querySelectorAll('.hover-slider').forEach(card => {
+        let timer;
+        let imgIndex = 0;
+        const imgEl = card.querySelector('.main-img');
+        const imagesData = card.getAttribute('data-images');
+        if(!imagesData) return;
+        
+        // Decode JSON safely by replacing escaped quotes
+        let images = [];
+        try {
+            images = JSON.parse(imagesData.replace(/&quot;/g, '"'));
+        } catch(e) {}
+        
+        if(images.length > 1) {
+            const startSlide = () => {
+                timer = setInterval(() => {
+                    imgIndex = (imgIndex + 1) % images.length;
+                    imgEl.style.opacity = 0.8;
+                    setTimeout(() => {
+                        imgEl.src = '/' + images[imgIndex];
+                        imgEl.style.opacity = 1;
+                    }, 150);
+                }, 1200);
+            };
+            const stopSlide = () => {
+                clearInterval(timer);
+                imgIndex = 0;
+                imgEl.src = '/' + images[0];
+            };
+            
+            card.addEventListener('mouseenter', startSlide);
+            card.addEventListener('mouseleave', stopSlide);
+            card.addEventListener('touchstart', startSlide);
+            card.addEventListener('touchend', stopSlide);
+        }
+    });
+</script>
+
+
+    <footer class="bg-black py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-6 md:mb-0">
+                <span class="font-display font-bold text-2xl tracking-wider text-white">TABLORIA <span class="text-accent">3D</span></span>
+                <p class="text-gray-500 mt-2 text-sm">© 2026 Tabloria 3D. All rights reserved.</p>
+            </div>
+            <div class="flex space-x-6">
+                <a href="https://wa.me/201067826826" target="_blank" class="text-gray-400 hover:text-green-500 text-xl transition-colors"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://www.instagram.com/tabloria3d?igsh=dnMwZzV1M3o4Mzk5&utm_source=qr" target="_blank" class="text-gray-400 hover:text-pink-500 text-xl transition-colors"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.facebook.com/share/18wS3MNBQi/?mibextid=wwXIfr" target="_blank" class="text-gray-400 hover:text-blue-500 text-xl transition-colors"><i class="fab fa-facebook"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Search Overlay -->
+    <div id="search-overlay" class="fixed inset-0 bg-black/95 z-50 hidden flex-col pt-24 px-4 sm:px-6 lg:px-8 backdrop-blur-sm">
+        <div class="max-w-3xl mx-auto w-full relative">
+            <button id="close-search" class="absolute -top-12 right-0 text-white hover:text-accent transition-colors">
+                <i class="fas fa-times text-2xl"></i>
+            </button>
+            <input type="text" id="search-input" class="w-full bg-secondary/80 border border-gray-700 text-white rounded-lg px-6 py-4 text-xl focus:outline-none focus:border-accent" placeholder="Search products...">
+            <div id="search-results" class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4 max-h-[60vh] overflow-y-auto"></div>
+        </div>
+    </div>
+
+    <!-- Cart Overlay -->
+    <div id="cart-overlay" class="fixed inset-0 bg-black/80 z-50 hidden justify-end backdrop-blur-sm">
+        <div class="w-full max-w-md bg-secondary h-full shadow-2xl flex flex-col transform transition-transform translate-x-full" id="cart-drawer">
+            <div class="p-6 border-b border-gray-800 flex justify-between items-center">
+                <h2 class="text-2xl font-display font-bold text-white">Your Cart</h2>
+                <button id="close-cart" class="text-gray-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
+            </div>
+            
+            <div class="flex-1 overflow-y-auto p-6 space-y-4" id="cart-items">
+                <!-- Cart items injected here -->
+            </div>
+            
+            <div class="p-6 border-t border-gray-800 bg-black/50">
+                <div class="flex justify-between items-center mb-6">
+                    <span class="text-gray-400">Total:</span>
+                    <span class="text-2xl font-bold text-accent" id="cart-total">0 EGP</span>
+                </div>
+                <button id="checkout-btn" class="w-full btn-primary mb-2">Proceed to Checkout</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div id="checkout-modal" class="fixed inset-0 bg-black/90 z-[60] hidden flex-col justify-center items-center px-4 backdrop-blur-sm">
+        <div class="glass-card w-full max-w-lg p-8 relative">
+            <button id="close-checkout" class="absolute top-4 right-4 text-gray-400 hover:text-white"><i class="fas fa-times text-xl"></i></button>
+            <h2 class="text-2xl font-display font-bold text-white mb-6">Complete Your Order</h2>
+            <form id="checkout-form" class="space-y-4">
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-1">Full Name</label>
+                    <input type="text" id="checkout-name" required class="input-field" placeholder="John Doe">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-1">WhatsApp / Phone Number</label>
+                    <input type="tel" id="checkout-phone" required class="input-field" placeholder="01xxxxxxxxx">
+                </div>
+                <div>
+                    <label class="block text-sm font-medium text-gray-300 mb-1">Email</label>
+                    <input type="email" id="checkout-email" required class="input-field" placeholder="your@email.com">
+                </div>
+                <button type="submit" class="w-full btn-primary mt-6 group">
+                    <span>Submit Order via WhatsApp</span>
+                    <i class="fab fa-whatsapp ml-2 text-xl group-hover:scale-110 transition-transform"></i>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://unpkg.com/lunr/lunr.js"></script>
+    <script src="/assets/js/cart.js"></script>
+    <script>
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Search UI logic
+        const searchOverlay = document.getElementById('search-overlay');
+        const searchInput = document.getElementById('search-input');
+        
+        function openSearch() {
+            searchOverlay.classList.remove('hidden');
+            searchOverlay.classList.add('flex');
+            setTimeout(() => searchInput.focus(), 100);
+        }
+        
+        function closeSearch() {
+            searchOverlay.classList.add('hidden');
+            searchOverlay.classList.remove('flex');
+        }
+
+        document.getElementById('search-btn').addEventListener('click', openSearch);
+        document.getElementById('mobile-search-btn').addEventListener('click', openSearch);
+        document.getElementById('close-search').addEventListener('click', closeSearch);
+        
+        // Search Logic
+        let searchIndex;
+        let productsData = {};
+
+        fetch('/search.json')
+            .then(res => res.json())
+            .then(data => {
+                searchIndex = lunr(function () {
+                    this.ref('url');
+                    this.field('title');
+                    this.field('category');
+                    
+                    data.forEach(function (doc) {
+                        this.add(doc);
+                        productsData[doc.url] = doc;
+                    }, this)
+                });
+            });
+
+        searchInput.addEventListener('input', function() {
+            const query = this.value;
+            const resultsContainer = document.getElementById('search-results');
+            
+            if (query.length < 2) {
+                resultsContainer.innerHTML = '';
+                return;
+            }
+
+            const results = searchIndex.search(query);
+            
+            if (results.length === 0) {
+                resultsContainer.innerHTML = '<p class="text-gray-400">No products found.</p>';
+                return;
+            }
+
+            resultsContainer.innerHTML = results.map(result => {
+                const item = productsData[result.ref];
+                return `
+                    <a href="${item.url}" class="flex items-center gap-4 bg-secondary p-4 rounded-lg hover:bg-gray-800 transition-colors">
+                        <img src="/${item.image}" alt="${item.title}" class="w-16 h-16 object-cover rounded">
+                        <div>
+                            <h4 class="text-white font-medium">${item.title}</h4>
+                            <p class="text-accent">${item.price} EGP</p>
+                        </div>
+                    </a>
+                `;
+            }).join('');
+        });
+    </script>
+</body>
+</html>
