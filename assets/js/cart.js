@@ -111,14 +111,32 @@ document.addEventListener('DOMContentLoaded', () => {
         const phone = document.getElementById('checkout-phone').value;
         const email = document.getElementById('checkout-email').value;
         
-        const orderDetails = cart.map(item => `${item.quantity}x ${item.title} (${item.price} EGP)`).join('%0A');
+        const orderDetailsText = cart.map(item => `${item.quantity}x ${item.title} (${item.price} EGP)`).join('\n');
         const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
         
-        const messageText = `New Order from Tabloria 3D!%0A%0A*Customer Info:*%0AName: ${name}%0APhone: ${phone}%0AEmail: ${email}%0A%0A*Order Details:*%0A${orderDetails}%0A%0A*Total:* ${totalPrice} EGP`;
-        
-        // 1. Send via CallMeBot WhatsApp API silently
+        // --- 1. DIRECT WHATSAPP FALLBACK (Works immediately) ---
+        const messageText = `New Order from Tabloria 3D!%0A%0A*Customer Info:*%0AName: ${name}%0APhone: ${phone}%0AEmail: ${email}%0A%0A*Order Details:*%0A${orderDetailsText.replace(/\n/g, "%0A")}%0A%0A*Total:* ${totalPrice} EGP`;
         const waApiUrl = `https://api.callmebot.com/whatsapp.php?phone=201067826826&text=${messageText}&apikey=7695586`;
         fetch(waApiUrl, { mode: 'no-cors' }).catch(e => console.log(e));
+
+        // --- 2. GOOGLE SHEETS & EMAIL INTEGRATION ---
+        // IMPORTANT: Replace the URL below with your actual Google Apps Script Web App URL
+        // after following the instructions in gas_notification.gs!
+        const googleWebAppUrl = "https://script.google.com/macros/s/AKfycbxfwXY4CUlkAjEf608ZB5BgUTDxEoRZIN2hqF5FAVsTy61P7I4HpjsDWhz48L92GDMXeQ/exec";
+        
+        if (googleWebAppUrl !== "YOUR_GOOGLE_WEB_APP_URL_HERE") {
+            fetch(googleWebAppUrl, {
+                method: "POST",
+                headers: { "Content-Type": "text/plain" },
+                body: JSON.stringify({
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    orderDetails: orderDetailsText,
+                    totalPrice: totalPrice
+                })
+            }).catch(e => console.log(e));
+        }
         
         // 2. Clear Cart
         cart = [];

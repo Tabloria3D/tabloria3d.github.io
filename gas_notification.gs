@@ -1,45 +1,49 @@
 function doPost(e) {
   try {
-    const params = e.parameter || {};
-    const name = params.name || 'No Name';
-    const email = params.email || 'No Email';
-    const phone = params.phone || 'No Phone';
-    const message = params.message || 'No Message';
-    const product = params.product || 'General Inquiry';
+    const postData = JSON.parse(e.postData.contents);
+    const name = postData.name || 'No Name';
+    const email = postData.email || 'No Email';
+    const phone = postData.phone || 'No Phone';
+    const orderDetails = postData.orderDetails || 'No Details';
+    const totalPrice = postData.totalPrice || 0;
+    
+    // 1. Save to Google Sheet
+    // This assumes the script is bound to a Google Sheet.
+    const sheet = SpreadsheetApp.getActiveSpreadsheet().getActiveSheet();
+    const timestamp = new Date();
+    // Headers should be: Timestamp | Name | Phone | Email | Order Details | Total Price
+    sheet.appendRow([timestamp, name, phone, email, orderDetails, totalPrice]);
 
-    // 1. Send Email Notification
+    // 2. Send Email Notification
     const recipientEmail = "tabloria3d@gmail.com";
-    const emailSubject = `New Inquiry from ${name} (Tabloria 3D)`;
+    const emailSubject = `New Order from ${name} (Tabloria 3D)`;
     const emailBody = `
-      You have a new inquiry from your website!
+You have a new order from your website!
       
-      Name: ${name}
-      Email: ${email}
-      Phone: ${phone}
-      Product/Subject: ${product}
-      Message: ${message}
+Name: ${name}
+Email: ${email}
+Phone: ${phone}
       
-      Customer WhatsApp Link: https://wa.me/${phone.replace(/[^0-9]/g, '')}
-    `;
+Order Details:
+${orderDetails}
+      
+Total Price: ${totalPrice} EGP
+      
+Customer WhatsApp Link: https://wa.me/${phone.replace(/[^0-9]/g, '')}
+`;
     
     MailApp.sendEmail(recipientEmail, emailSubject, emailBody);
 
-    // 2. Send WhatsApp Notification via CallMeBot
-    // IMPORTANT: Replace YOUR_CALLMEBOT_API_KEY with your actual CallMeBot API key
-    // You get this by sending a WhatsApp message to CallMeBot. 
-    // See https://www.callmebot.com/blog/free-api-whatsapp-messages/
-    const myWhatsAppNumber = "+201277073553"; // Your number in international format
-    const callMeBotApiKey = "YOUR_CALLMEBOT_API_KEY"; // REPLACE THIS
+    // 3. Send WhatsApp Notification via CallMeBot
+    const myWhatsAppNumber = "201067826826"; 
+    const callMeBotApiKey = "7695586";
     
-    if (callMeBotApiKey !== "YOUR_CALLMEBOT_API_KEY") {
-      const waMessage = `*New Lead from Tabloria 3D* %0A*Name:* ${name} %0A*Phone:* ${phone} %0A*Product:* ${product} %0A*Message:* ${message} %0A*Contact:* https://wa.me/${phone.replace(/[^0-9]/g, '')}`;
-      const url = `https://api.callmebot.com/whatsapp.php?phone=${myWhatsAppNumber}&text=${waMessage}&apikey=${callMeBotApiKey}`;
-      
-      UrlFetchApp.fetch(url, { muteHttpExceptions: true });
-    }
+    const waMessage = `*New Order from Tabloria 3D*%0A*Name:* ${name}%0A*Phone:* ${phone}%0A%0A*Order:*%0A${orderDetails.replace(/\n/g, "%0A")}%0A%0A*Total:* ${totalPrice} EGP`;
+    const url = `https://api.callmebot.com/whatsapp.php?phone=${myWhatsAppNumber}&text=${waMessage}&apikey=${callMeBotApiKey}`;
+    
+    UrlFetchApp.fetch(url, { muteHttpExceptions: true });
 
-    // Return CORS headers and success response
-    return ContentService.createTextOutput(JSON.stringify({ "status": "success", "message": "Inquiry sent successfully" }))
+    return ContentService.createTextOutput(JSON.stringify({ "status": "success" }))
       .setMimeType(ContentService.MimeType.JSON)
       .setHeader("Access-Control-Allow-Origin", "*");
 
@@ -50,7 +54,6 @@ function doPost(e) {
   }
 }
 
-// For pre-flight requests (CORS)
 function doOptions(e) {
   return ContentService.createTextOutput()
     .setHeader("Access-Control-Allow-Origin", "*")
@@ -60,14 +63,14 @@ function doOptions(e) {
 
 /* 
  * DEPLOYMENT INSTRUCTIONS:
- * 1. Go to https://script.google.com/ and create a new project.
- * 2. Paste this entire code into the editor (replace existing code).
- * 3. Save the project as "Tabloria3D Website Form Handler".
- * 4. Replace "YOUR_CALLMEBOT_API_KEY" with your actual API key from CallMeBot.
+ * 1. Go to Google Sheets (sheets.new) and create a new spreadsheet called "Tabloria Orders".
+ * 2. Set the first row headers to: Timestamp | Name | Phone | Email | Order Details | Total Price
+ * 3. Click "Extensions" > "Apps Script".
+ * 4. Paste this entire code into the editor (replace existing code).
  * 5. Click "Deploy" > "New deployment".
  * 6. Select type: "Web app".
  * 7. Set "Execute as" to "Me".
  * 8. Set "Who has access" to "Anyone".
  * 9. Click "Deploy" and authorize the app.
- * 10. Copy the "Web app URL" and paste it into the `scriptUrl` variable in `assets/js/main.js`.
+ * 10. Copy the "Web app URL" and paste it into `assets/js/cart.js` where indicated!
  */
