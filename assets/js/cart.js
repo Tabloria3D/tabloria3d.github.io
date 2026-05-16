@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // after following the instructions in gas_notification.gs!
         const googleWebAppUrl = "https://script.google.com/macros/s/AKfycbxfwXY4CUlkAjEf608ZB5BgUTDxEoRZIN2hqF5FAVsTy61P7I4HpjsDWhz48L92GDMXeQ/exec";
         
-        if (googleWebAppUrl !== "YOUR_GOOGLE_WEB_APP_URL_HERE") {
+        if (googleWebAppUrl !== "https://script.google.com/macros/s/AKfycbxfwXY4CUlkAjEf608ZB5BgUTDxEoRZIN2hqF5FAVsTy61P7I4HpjsDWhz48L92GDMXeQ/exec") {
             fetch(googleWebAppUrl, {
                 method: "POST",
                 headers: { "Content-Type": "text/plain" },
